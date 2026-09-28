@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: moon update
+
+      - name: Check
+        run: moon check
+
+      - name: Test (all targets)
+        run: moon test --target all
+
+      - name: Publish to mooncakes.io
+        env:
+          MOON_TOKEN: ${{ secrets.MOON_TOKEN }}
+        run: |
+          mkdir -p ~/.moon
+          echo "{\"token\":\"${MOON_TOKEN}\",\"username\":\"hiroyannnn\"}" > ~/.moon/credentials.json
+          moon publish

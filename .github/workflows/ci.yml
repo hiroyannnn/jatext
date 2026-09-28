@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: moon update
+
+      - name: Check
+        run: moon check
+
+      - name: Test (all targets)
+        run: moon test --target all
+
+      - name: Format check
+        run: |
+          moon fmt
+          # generated files are checked by the `generated` job instead
+          git checkout -- lib/tables.mbt lib/golden_*_wbtest.mbt
+          git diff --exit-code
+
+  generated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install reference implementations
+        run: pip install -r tools/requirements.txt
+
+      - name: Generated files are up to date
+        run: |
+          python3 tools/gen_tables.py
+          python3 tools/gen_golden.py
+          git diff --exit-code
