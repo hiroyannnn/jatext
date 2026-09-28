@@ -1,0 +1,5 @@
+import {
+  "hiroyannnn/jatext",
+}
+
+pkgtype(kind: "executable")
