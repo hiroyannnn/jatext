@@ -22,19 +22,31 @@ test "enlarge_smallkana" {
 
 ///|
 test "z2h" {
-  inspect(@lib.z2h("ティロフィナーレ"), content="ﾃｨﾛﾌｨﾅｰﾚ")
+  inspect(
+    @lib.z2h("ティロフィナーレ"),
+    content="ﾃｨﾛﾌｨﾅｰﾚ",
+  )
   inspect(
     @lib.z2h("ＡＢＣ１２３　アイウ", ascii=true, digit=true),
     content="ABC123 ｱｲｳ",
   )
-  inspect(@lib.z2h("ＡＢＣ１２３", kana=false, digit=true), content="ＡＢＣ123")
+  inspect(
+    @lib.z2h("ＡＢＣ１２３", kana=false, digit=true),
+    content="ＡＢＣ123",
+  )
 }
 
 ///|
 test "h2z" {
-  inspect(@lib.h2z("ﾃｨﾛﾌｨﾅｰﾚ"), content="ティロフィナーレ")
+  inspect(
+    @lib.h2z("ﾃｨﾛﾌｨﾅｰﾚ"),
+    content="ティロフィナーレ",
+  )
   inspect(@lib.h2z("ｶﾞｯｺｳ"), content="ガッコウ")
-  inspect(@lib.h2z("abc123", ascii=true, digit=true), content="ａｂｃ１２３")
+  inspect(
+    @lib.h2z("abc123", ascii=true, digit=true),
+    content="ａｂｃ１２３",
+  )
 }
 
 ///|
@@ -44,10 +56,15 @@ test "normalize" {
     content="PRML副読本",
   )
   inspect(
-    @lib.normalize("南アルプスの　天然水　Ｓｐａｒｋｉｎｇ　Ｌｅｍｏｎ　レモン一絞り"),
+    @lib.normalize(
+      "南アルプスの　天然水　Ｓｐａｒｋｉｎｇ　Ｌｅｍｏｎ　レモン一絞り",
+    ),
     content="南アルプスの天然水Sparking Lemonレモン一絞り",
   )
-  inspect(@lib.normalize("ﾊﾝｶｸｶﾀｶﾅ ﾊﾟﾊﾟ"), content="ハンカクカタカナパパ")
+  inspect(
+    @lib.normalize("ﾊﾝｶｸｶﾀｶﾅ ﾊﾟﾊﾟ"),
+    content="ハンカクカタカナパパ",
+  )
   inspect(@lib.normalize("スーパーーーー"), content="スーパー")
 }
 
@@ -62,8 +79,14 @@ test "normalize: options" {
     @lib.normalize("1467~1487年", tilde=@lib.Tilde::NormalizeZenkaku),
     content="1467〜1487年",
   )
-  inspect(@lib.normalize("巴 マミ", remove_space=false), content="巴 マミ")
-  inspect(@lib.normalize("うまああああああい", repeat=2), content="うまああい")
+  inspect(
+    @lib.normalize("巴 マミ", remove_space=false),
+    content="巴 マミ",
+  )
+  inspect(
+    @lib.normalize("うまああああああい", repeat=2),
+    content="うまああい",
+  )
 }
 
 ///|
@@ -75,8 +98,14 @@ test "normalize: neologdn quirks are kept" {
 
 ///|
 test "shorten_repeat" {
-  inspect(@lib.shorten_repeat("無駄無駄無駄無駄ァ", 1), content="無駄ァ")
-  inspect(@lib.shorten_repeat("オラオラオラオラーッ", 2), content="オラオラーッ")
+  inspect(
+    @lib.shorten_repeat("無駄無駄無駄無駄ァ", 1),
+    content="無駄ァ",
+  )
+  inspect(
+    @lib.shorten_repeat("オラオラオラオラーッ", 2),
+    content="オラオラーッ",
+  )
   // threshold < 1 is not supported and returns the input unchanged
   inspect(@lib.shorten_repeat("ああああ", 0), content="ああああ")
 }

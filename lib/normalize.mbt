@@ -96,12 +96,8 @@ pub fn normalize(
       match tilde {
         Tilde::Remove => continue
         Tilde::Ignore => ()
-        Tilde::Normalize => {
-          c = '~'
-        }
-        Tilde::NormalizeZenkaku => {
-          c = '〜'
-        }
+        Tilde::Normalize => c = '~'
+        Tilde::NormalizeZenkaku => c = '〜'
       }
       buf[pos] = c
       latin_space = false
@@ -142,11 +138,7 @@ pub fn normalize(
   }
   let result = sb.to_string()
   if repeat != 0 {
-    shorten_repeat(
-      result,
-      repeat,
-      max_repeat_substr_length=max_repeat_substr_length,
-    )
+    shorten_repeat(result, repeat, max_repeat_substr_length~)
   } else {
     result
   }

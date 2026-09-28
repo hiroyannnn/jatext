@@ -52,11 +52,7 @@ pub fn shorten_repeat(
       }
       if count > threshold {
         let head = slice_chars(chars, 0, i + repeat_length * threshold)
-        let tail = slice_chars(
-          chars,
-          i + repeat_length * count,
-          chars.length(),
-        )
+        let tail = slice_chars(chars, i + repeat_length * count, chars.length())
         head.push_iter(tail.iter())
         chars = head
       }

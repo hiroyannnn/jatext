@@ -35,9 +35,15 @@ test "kana" {
   inspect(@jatext.hira2kata("ともえまみ"), content="トモエマミ")
   inspect(@jatext.kata2hira("巴マミ"), content="巴まみ")
   inspect(@jatext.hira2hkata("がっこう"), content="ｶﾞｯｺｳ")
-  inspect(@jatext.enlarge_smallkana("キュゥべえ"), content="キユウべえ")
+  inspect(
+    @jatext.enlarge_smallkana("キュゥべえ"),
+    content="キユウべえ",
+  )
   // characters in `ignore` are left as they are
-  inspect(@jatext.hira2kata("まどまぎ", ignore="ど"), content="マどマギ")
+  inspect(
+    @jatext.hira2kata("まどまぎ", ignore="ど"),
+    content="マどマギ",
+  )
 }
 ```
 
@@ -48,13 +54,19 @@ test "kana" {
 ```mbt check
 ///|
 test "width" {
-  inspect(@jatext.z2h("ティロフィナーレ"), content="ﾃｨﾛﾌｨﾅｰﾚ")
+  inspect(
+    @jatext.z2h("ティロフィナーレ"),
+    content="ﾃｨﾛﾌｨﾅｰﾚ",
+  )
   inspect(
     @jatext.z2h("ＡＢＣ１２３　アイウ", ascii=true, digit=true),
     content="ABC123 ｱｲｳ",
   )
   inspect(@jatext.h2z("ｶﾞｯｺｳ"), content="ガッコウ")
-  inspect(@jatext.h2z("abc123", ascii=true, digit=true), content="ａｂｃ１２３")
+  inspect(
+    @jatext.h2z("abc123", ascii=true, digit=true),
+    content="ａｂｃ１２３",
+  )
 }
 ```
 
@@ -68,10 +80,15 @@ test "normalize" {
     content="PRML副読本",
   )
   inspect(
-    @jatext.normalize("南アルプスの　天然水　Ｓｐａｒｋｉｎｇ　Ｌｅｍｏｎ　レモン一絞り"),
+    @jatext.normalize(
+      "南アルプスの　天然水　Ｓｐａｒｋｉｎｇ　Ｌｅｍｏｎ　レモン一絞り",
+    ),
     content="南アルプスの天然水Sparking Lemonレモン一絞り",
   )
-  inspect(@jatext.normalize("ﾊﾝｶｸｶﾀｶﾅ ﾊﾟﾊﾟ"), content="ハンカクカタカナパパ")
+  inspect(
+    @jatext.normalize("ﾊﾝｶｸｶﾀｶﾅ ﾊﾟﾊﾟ"),
+    content="ハンカクカタカナパパ",
+  )
   inspect(@jatext.normalize("スーパーーーー"), content="スーパー")
   // tildes are removed by default
   inspect(@jatext.normalize("1467〜1487年"), content="14671487年")
@@ -79,9 +96,18 @@ test "normalize" {
     @jatext.normalize("1467〜1487年", tilde=@jatext.Tilde::Normalize),
     content="1467~1487年",
   )
-  inspect(@jatext.normalize("巴 マミ", remove_space=false), content="巴 マミ")
-  inspect(@jatext.normalize("うまああああああい", repeat=2), content="うまああい")
-  inspect(@jatext.shorten_repeat("無駄無駄無駄無駄ァ", 1), content="無駄ァ")
+  inspect(
+    @jatext.normalize("巴 マミ", remove_space=false),
+    content="巴 マミ",
+  )
+  inspect(
+    @jatext.normalize("うまああああああい", repeat=2),
+    content="うまああい",
+  )
+  inspect(
+    @jatext.shorten_repeat("無駄無駄無駄無駄ァ", 1),
+    content="無駄ァ",
+  )
 }
 ```
 
