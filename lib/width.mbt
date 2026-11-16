@@ -55,10 +55,10 @@ fn h2z_lookup(c : Char, kana : Bool, ascii : Bool, digit : Bool) -> String? {
 /// Characters in `ignore` are left as they are.
 pub fn z2h(
   text : String,
-  ignore? : String = "",
-  kana? : Bool = true,
-  ascii? : Bool = false,
-  digit? : Bool = false,
+  ignore~ : String = "",
+  kana~ : Bool = true,
+  ascii~ : Bool = false,
+  digit~ : Bool = false,
 ) -> String {
   translate(text, ignore, fn(c) { z2h_lookup(c, kana, ascii, digit) })
 }
@@ -102,10 +102,10 @@ fn compose_half_kana_marks(text : String) -> String {
 /// Characters in `ignore` are otherwise left as they are.
 pub fn h2z(
   text : String,
-  ignore? : String = "",
-  kana? : Bool = true,
-  ascii? : Bool = false,
-  digit? : Bool = false,
+  ignore~ : String = "",
+  kana~ : Bool = true,
+  ascii~ : Bool = false,
+  digit~ : Bool = false,
 ) -> String {
   let source = if kana { compose_half_kana_marks(text) } else { text }
   translate(source, ignore, fn(c) { h2z_lookup(c, kana, ascii, digit) })

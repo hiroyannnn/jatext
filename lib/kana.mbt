@@ -27,7 +27,7 @@ fn translate(
 /// Converts hiragana to full-width katakana (jaconv `hira2kata`).
 ///
 /// Characters in `ignore` are left as they are.
-pub fn hira2kata(text : String, ignore? : String = "") -> String {
+pub fn hira2kata(text : String, ignore~ : String = "") -> String {
   translate(text, ignore, hira2kata_table)
 }
 
@@ -35,7 +35,7 @@ pub fn hira2kata(text : String, ignore? : String = "") -> String {
 /// Converts full-width katakana to hiragana (jaconv `kata2hira`).
 ///
 /// Characters in `ignore` are left as they are.
-pub fn kata2hira(text : String, ignore? : String = "") -> String {
+pub fn kata2hira(text : String, ignore~ : String = "") -> String {
   translate(text, ignore, kata2hira_table)
 }
 
@@ -44,7 +44,7 @@ pub fn kata2hira(text : String, ignore? : String = "") -> String {
 ///
 /// Voiced kana become two characters (`が` -> `ｶﾞ`). Characters in `ignore`
 /// are left as they are.
-pub fn hira2hkata(text : String, ignore? : String = "") -> String {
+pub fn hira2hkata(text : String, ignore~ : String = "") -> String {
   translate(text, ignore, hira2hkata_table)
 }
 
@@ -52,6 +52,6 @@ pub fn hira2hkata(text : String, ignore? : String = "") -> String {
 /// Converts small kana to their normal size (jaconv `enlarge_smallkana`).
 ///
 /// Characters in `ignore` are left as they are.
-pub fn enlarge_smallkana(text : String, ignore? : String = "") -> String {
+pub fn enlarge_smallkana(text : String, ignore~ : String = "") -> String {
   translate(text, ignore, enlarge_smallkana_table)
 }

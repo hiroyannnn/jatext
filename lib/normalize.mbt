@@ -1,6 +1,7 @@
 ///|
 /// How `normalize` treats tilde-like characters
 /// (`~` `∼` `∾` `〜` `〰` `～`).
+#derive(Eq, Debug)
 pub(all) enum Tilde {
   /// Remove them (default, same as neologdn `tilde='remove'`).
   Remove
@@ -10,7 +11,7 @@ pub(all) enum Tilde {
   Normalize
   /// Replace them with `〜` (`tilde='normalize_zenkaku'`).
   NormalizeZenkaku
-} derive(Eq, Debug)
+}
 
 ///|
 /// CJK unified ideographs, hiragana, katakana, CJK symbols and punctuation
@@ -48,10 +49,10 @@ fn is_basic_latin(c : Char) -> Bool {
 /// becomes `1ー2`); see README.
 pub fn normalize(
   text : String,
-  repeat? : Int = 0,
-  remove_space? : Bool = true,
-  max_repeat_substr_length? : Int = 8,
-  tilde? : Tilde = Tilde::Remove,
+  repeat~ : Int32 = 0,
+  remove_space~ : Bool = true,
+  max_repeat_substr_length~ : Int32 = 8,
+  tilde~ : Tilde = Tilde::Remove,
 ) -> String {
   if text.is_empty() {
     return ""

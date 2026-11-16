@@ -1,6 +1,6 @@
 ///|
 /// `a[start:end]` with Python slice semantics for non-negative indices.
-fn slice_chars(a : Array[Char], start : Int, end : Int) -> Array[Char] {
+fn slice_chars(a : Array[Char], start : Int32, end : Int32) -> Array[Char] {
   let len = a.length()
   let s = if start > len { len } else { start }
   let e = if end > len { len } else { end }
@@ -22,8 +22,8 @@ fn slice_chars(a : Array[Char], start : Int, end : Int) -> Array[Char] {
 /// unchanged (neologdn gives slice-dependent results there).
 pub fn shorten_repeat(
   text : String,
-  threshold : Int,
-  max_repeat_substr_length? : Int = 8,
+  threshold : Int32,
+  max_repeat_substr_length~ : Int32 = 8,
 ) -> String {
   if threshold < 1 {
     return text
